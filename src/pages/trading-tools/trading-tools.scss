@@ -1,0 +1,578 @@
+@use 'components/shared/styles/mixins' as *;
+
+.trading-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 2.4rem 1.6rem 12rem;
+    color: var(--text-general);
+    height: calc(100vh - 16rem);
+    overflow-y: auto;
+
+    @include mobile-or-tablet-screen {
+        padding: 1.6rem 1.2rem 16rem;
+        height: auto;
+    }
+
+    &__header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.6rem;
+    }
+
+    &__title {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: var(--text-prominent);
+    }
+
+    &__subtitle,
+    &__hint {
+        font-size: 1.3rem;
+        color: var(--text-less-prominent);
+        line-height: 1.5;
+    }
+
+    &__controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 1.2rem;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        font-size: 1.2rem;
+        color: var(--text-less-prominent);
+        flex: 1;
+        min-width: 12rem;
+
+        &--inline {
+            flex-direction: row;
+            align-items: center;
+            flex: 0;
+            min-width: auto;
+        }
+
+        select,
+        input {
+            height: 4rem;
+            padding: 0 1.2rem;
+            border: 1px solid var(--border-normal);
+            border-radius: 0.8rem;
+            background: var(--general-main-1);
+            color: var(--text-prominent);
+            font-size: 1.4rem;
+
+            &:focus-visible {
+                outline: 2px solid var(--button-primary-default);
+                outline-offset: 1px;
+            }
+        }
+    }
+
+    &__field-error {
+        font-size: 1.2rem;
+        color: var(--text-loss-danger);
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.6rem;
+        border: 1px solid var(--border-normal);
+        border-radius: 1.2rem;
+        background: var(--general-main-1);
+    }
+
+    &__card-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+    }
+
+    &__card-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-prominent);
+    }
+
+    &__label {
+        display: block;
+        font-size: 1.2rem;
+        color: var(--text-less-prominent);
+    }
+
+    &__price {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    &__price-value {
+        display: block;
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: var(--text-prominent);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__live {
+        text-align: right;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+        gap: 1.6rem;
+    }
+
+    &__digits {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 0.8rem;
+
+        @include mobile-or-tablet-screen {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    &__digit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 1rem 0.4rem;
+        border: 2px solid transparent;
+        border-radius: 1rem;
+        background: var(--general-section-1);
+
+        &--high {
+            background: var(--status-success);
+            color: #fff;
+        }
+
+        &--low {
+            background: var(--status-danger);
+            color: #fff;
+        }
+
+        &--current {
+            border-color: var(--text-prominent);
+        }
+    }
+
+    &__digit-number {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    &__digit-pct {
+        font-size: 1.2rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__split {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    &__split-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+    }
+
+    &__split-bar {
+        display: flex;
+        height: 1rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        background: var(--general-section-1);
+    }
+
+    &__split-left {
+        background: var(--status-success);
+        transition: width 0.3s ease;
+    }
+
+    &__split-right {
+        background: var(--status-danger);
+        transition: width 0.3s ease;
+    }
+
+    &__stream {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    &__stream-digit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.2rem;
+        height: 3.2rem;
+        border-radius: 50%;
+        font-weight: 700;
+        font-size: 1.4rem;
+        background: var(--status-danger);
+        color: #fff;
+
+        &--even {
+            background: var(--status-success);
+        }
+    }
+
+    &__notice {
+        padding: 1.2rem 1.6rem;
+        border-radius: 0.8rem;
+        background: var(--general-section-1);
+        font-size: 1.4rem;
+
+        &--error {
+            color: var(--text-loss-danger);
+        }
+    }
+
+    &__button {
+        height: 4rem;
+        padding: 0 2rem;
+        border: none;
+        border-radius: 0.8rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        cursor: pointer;
+
+        &--primary {
+            background: var(--button-primary-default);
+            color: #fff;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    &__toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        height: 4rem;
+        font-size: 1.3rem;
+    }
+
+    &__badge {
+        display: inline-block;
+        padding: 0.2rem 0.8rem;
+        border-radius: 1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        background: var(--general-section-1);
+
+        &--strong,
+        &--risk-low {
+            background: var(--status-success);
+            color: #fff;
+        }
+
+        &--moderate,
+        &--risk-medium {
+            background: #ffad3a;
+            color: #1a1a1a;
+        }
+
+        &--risk-high {
+            background: var(--status-danger);
+            color: #fff;
+        }
+    }
+
+    &__table-wrapper {
+        overflow-x: auto;
+    }
+
+    &__table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.4rem;
+
+        th,
+        td {
+            padding: 1rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-normal);
+            white-space: nowrap;
+        }
+
+        th {
+            font-size: 1.2rem;
+            color: var(--text-less-prominent);
+            font-weight: 400;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+    }
+
+    &__empty {
+        padding: 2.4rem 0;
+        text-align: center;
+        color: var(--text-less-prominent);
+        font-size: 1.4rem;
+    }
+
+    &__bots {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+        gap: 1.6rem;
+    }
+
+    &__bot {
+        justify-content: space-between;
+    }
+
+    &__bot-description {
+        flex: 1;
+        font-size: 1.4rem;
+        line-height: 1.5;
+    }
+
+    &__trade-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 1.6rem;
+        align-items: start;
+
+        @include mobile-or-tablet-screen {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__form {
+        gap: 1.6rem;
+    }
+
+    &__form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+    }
+
+    &__segmented {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        border: none;
+        padding: 0;
+
+        legend {
+            margin-bottom: 0.4rem;
+            font-size: 1.2rem;
+            color: var(--text-less-prominent);
+        }
+    }
+
+    &__segment {
+        padding: 0.8rem 1.4rem;
+        border: 1px solid var(--border-normal);
+        border-radius: 2rem;
+        font-size: 1.3rem;
+        cursor: pointer;
+
+        &--active {
+            border-color: var(--text-prominent);
+            background: var(--text-prominent);
+            color: var(--general-main-1);
+        }
+
+        &:focus-within {
+            outline: 2px solid var(--button-primary-default);
+            outline-offset: 2px;
+        }
+    }
+
+    &__buy-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+    }
+
+    &__buy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 1.4rem;
+        border: none;
+        border-radius: 1rem;
+        color: #fff;
+        cursor: pointer;
+
+        &--up {
+            background: var(--status-success);
+        }
+
+        &--down {
+            background: var(--status-danger);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    &__buy-label {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    &__buy-payout {
+        font-size: 1.2rem;
+    }
+
+    &__trades {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__trade {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-normal);
+        font-size: 1.4rem;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__trade-result {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+
+        &--won {
+            color: var(--text-profit-success);
+        }
+
+        &--lost {
+            color: var(--text-loss-danger);
+        }
+    }
+}
+
+.master-five {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    &__layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 2.4rem;
+
+        @include mobile-or-tablet-screen {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    &__fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem;
+    }
+
+    &__panel {
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+    }
+
+    &__status {
+        padding: 1.2rem 1.6rem;
+        border-radius: 0.8rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        background: var(--general-section-1);
+
+        &--waiting {
+            border-left: 4px solid #ffad3a;
+        }
+
+        &--trading {
+            border-left: 4px solid var(--button-primary-default);
+        }
+    }
+
+    &__digit--even {
+        background: var(--status-success);
+    }
+
+    &__digit--odd {
+        background: var(--status-danger);
+    }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+
+        @include mobile-or-tablet-screen {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            background: var(--general-section-1);
+        }
+
+        dt {
+            font-size: 1.2rem;
+            color: var(--text-less-prominent);
+        }
+
+        dd {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    &__positive {
+        color: var(--text-profit-success);
+    }
+
+    &__negative {
+        color: var(--text-loss-danger);
+    }
+
+    &__stop {
+        background: var(--status-danger);
+        color: #fff;
+    }
+}
